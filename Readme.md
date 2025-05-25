@@ -47,7 +47,7 @@ The training data is synthetically generated to mimic conditions in the North At
 -   Jupyter Notebook
 
 ## Project Structure
-.
+ 
 ├── data/
 │ ├── nn_predictions_pytorch.csv # Predictions from the Neural Network model
 │ ├── real_forced_training_data.csv # Generated synthetic training data
