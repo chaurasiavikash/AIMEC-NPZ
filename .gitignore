@@ -1,0 +1,36 @@
+# Ignore image files
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Ignore PDF files
+*.pdf
+
+# Ignore LaTeX files
+*.tex
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# Ignore CSV files
+*.csv
+
+# Ignore Python bytecode and cache
+__pycache__/
+*.pyc
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore virtual environments
+venv/
+.env/
+
+# Allow scripts and notebooks explicitly
+!scripts/*.py
+!notebooks/*.ipynb
+!README.md
+!requirements.txt
