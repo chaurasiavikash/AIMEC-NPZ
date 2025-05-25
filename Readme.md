@@ -3,7 +3,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- Consider adding a license -->
 
-This project was developed as part of an application for the JAMSTEC AIMEC Researcher position. It focuses on developing and comparing machine learning-based surrogate models for an enhanced Nutrient-Phytoplankton-Zooplankton-Detritus (NPZD) ecosystem model.
+This project  focuses on developing and comparing machine learning-based surrogate models for an enhanced Nutrient-Phytoplankton-Zooplankton-Detritus (NPZD) ecosystem model.
 
 ## Overview
 
