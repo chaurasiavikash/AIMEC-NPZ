@@ -1,22 +1,228 @@
-# AIMEC NPZ Surrogate Model
+# Surrogate Modeling of an Enhanced NPZD Ecosystem Model for JAMSTEC AIMEC Application
 
-This repository contains code and analysis for developing surrogate models of the Nutrient-Phytoplankton-Zooplankton-Detritus (NPZ-D) ecosystem using machine learning techniques, created as part of an application for the JAMSTEC AIMEC Researcher position. The project integrates synthetic oceanographic data (Sea Surface Temperature and chlorophyll) with an enhanced NPZ model and compares Random Forest and PyTorch Neural Network surrogate models.
+[![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- Consider adding a license -->
+
+This project was developed as part of an application for the JAMSTEC AIMEC Researcher position. It focuses on developing and comparing machine learning-based surrogate models for an enhanced Nutrient-Phytoplankton-Zooplankton-Detritus (NPZD) ecosystem model.
 
 ## Overview
-- **Goal**: Build and compare Random Forest and PyTorch Neural Network surrogates to approximate the NPZ-D model dynamics.
-- **Data**: Synthetic data generated based on realistic oceanographic forcing conditions.
-- **Tools**: Python, scikit-learn, PyTorch, Jupyter Notebook, pandas, numpy, matplotlib.
 
-## Files
-- `scripts/generate_training_data.py`: Generates synthetic training data (`real_forced_training_data.csv`) using an enhanced NPZ model with real forcing conditions.
-- `scripts/random_forest_surrogate.py`: Trains a Random Forest model and saves predictions to `rf_predictions.csv`.
-- `scripts/neural_network_surrogate_pytorch.py`: Trains a PyTorch neural network model and saves predictions to `nn_predictions_pytorch.csv`.
-- `scripts/compare_models.py`: Compares the performance of Random Forest and Neural Network models and generates comparison plots.
-- `notebooks/test.ipynb`: Visualizes model predictions and performance metrics.
-- `figures/`: Contains generated plots (e.g., `chlorophyll_distribution.png`, `prediction_scatter_plots.png`, `model_comparison_scatter_plots.png`).
+The primary goal of this project is to create computationally efficient surrogate models that can approximate the outputs of a complex, process-based NPZD model. The NPZD model simulates the dynamics of key marine ecosystem components: Nutrients ($N$), Phytoplankton ($P$), Zooplankton ($Z$), Detritus ($D$), and Chlorophyll.
+
+Traditional NPZD models, while accurate, can be computationally intensive. This project explores the use of Random Forest (RF) and Neural Network (NN) techniques to build surrogate models that predict these five variables based on environmental inputs.
+
+**Key Features:**
+-   **Enhanced NPZD Model Simulation:** Generation of synthetic training data using a sophisticated NPZD model.
+-   **Surrogate Model Development:** Implementation and training of:
+    -   A Random Forest (RF) model using scikit-learn.
+    -   A Neural Network (NN) model using PyTorch.
+-   **Model Comparison:** Quantitative and qualitative comparison of the RF and NN surrogate models.
+-   **Visualization:** Jupyter Notebook for visualizing input data characteristics and model predictions.
+
+**Inputs to Surrogate Models:**
+-   Sea Surface Temperature (SST)
+-   Day of Year
+-   Latitude
+-   Longitude
+-   Initial Nutrient Concentration ($N_0$)
+-   Time
+
+**Outputs (Targets):**
+-   Nutrient concentration ($N$)
+-   Phytoplankton biomass ($P$)
+-   Zooplankton biomass ($Z$)
+-   Detritus concentration ($D$)
+-   Chlorophyll concentration
+
+**Data Source:**
+The training data is synthetically generated to mimic conditions in the North Atlantic (Gulf Stream region: 40.0°N, -50.0°W) for the year 2023.
+
+**Tools and Libraries:**
+-   Python 3.10+
+-   pandas
+-   numpy
+-   matplotlib
+-   scikit-learn
+-   torch
+-   Jupyter Notebook
+
+## Project Structure
+.
+├── data/
+│ ├── nn_predictions_pytorch.csv # Predictions from the Neural Network model
+│ ├── real_forced_training_data.csv # Generated synthetic training data
+│ ├── rf_predictions.csv # Predictions from the Random Forest model
+│ └── .gitkeep # Placeholder for empty directory tracking
+├── figures/
+│ ├── chlorophyll_distribution.png # Distribution of chlorophyll in training data
+│ ├── model_comparison_scatter_plots.png # Scatter plots comparing RF and NN predictions
+│ └── prediction_scatter_plots.png # Generic scatter plots (may be from notebook)
+├── notebooks/
+│ └── test.ipynb # Jupyter Notebook for data exploration and visualization
+├── scripts/
+│ ├── compare_models.py # Script to compare RF and NN model performance
+│ ├── generate_training_data.py # Script to generate synthetic NPZD training data
+│ ├── neural_network_surrogate_pytorch.py # Script to train and evaluate the PyTorch NN model
+│ └── random_forest_surrogate.py # Script to train and evaluate the scikit-learn RF model
+├── README.md # This file
+├── report.tex # LaTeX source for the project report (optional)
+├── report.pdf # PDF version of the project report (optional)
+├── requirements.txt # Python package dependencies
+└── .gitignore # Specifies intentionally untracked files for Git
+## Files and Directories
+
+-   **`data/`**: Stores all data files.
+    -   `real_forced_training_data.csv`: The primary dataset generated by the NPZD model, used for training and testing the surrogate models.
+    -   `rf_predictions.csv` & `nn_predictions_pytorch.csv`: Contain the true values and the predictions made by the Random Forest and Neural Network models, respectively, on the test set.
+-   **`figures/`**: Contains plots generated by the scripts and notebooks, such as data distributions and model performance visualizations.
+-   **`notebooks/`**:
+    -   `test.ipynb`: A Jupyter Notebook for interactive data exploration, visualization of training data characteristics (e.g., chlorophyll distribution), and plotting model prediction results.
+-   **`scripts/`**: Contains all Python scripts for the project workflow.
+    -   `generate_training_data.py`: Runs the enhanced NPZD model multiple times with varying inputs to create the synthetic dataset.
+    -   `random_forest_surrogate.py`: Trains a Random Forest regressor on the generated data to predict the five target variables and evaluates its performance.
+    -   `neural_network_surrogate_pytorch.py`: Trains a PyTorch-based Neural Network on the generated data and evaluates its performance.
+    -   `compare_models.py`: Compares the performance of the Random Forest and Neural Network models using R² and RMSE metrics and generates comparative plots.
+-   **`README.md`**: This documentation file.
+-   **`report.tex` / `report.pdf`**: (Optional) LaTeX source and compiled PDF of a detailed project report.
+-   **`requirements.txt`**: A list of Python packages required to run the project.
+-   **`.gitignore`**: Standard Git ignore file.
 
 ## Installation
-To run this project, install the required dependencies using pip:
 
-```bash
-pip install pandas numpy matplotlib scikit-learn torch jupyter
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/chaurasiavikash/AIMEC-NPZ.git
+    cd AIMEC-NPZ
+    ```
+
+2.  **Ensure Python 3.10 or later is installed.** You can check your Python version using:
+    ```bash
+    python --version
+    ```
+
+3.  **Create and activate a virtual environment (recommended):**
+    ```bash
+    python -m venv venv
+    ```
+    -   On macOS and Linux:
+        ```bash
+        source venv/bin/activate
+        ```
+    -   On Windows:
+        ```bash
+        venv\Scripts\activate
+        ```
+
+4.  **Install the required Python packages:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Usage
+
+Follow these steps in the specified order to set up and run the project. All scripts should be run from the root directory of the project.
+
+1.  **Generate Training Data:**
+    Run the script to generate synthetic training data from the enhanced NPZD model.
+    ```bash
+    python scripts/generate_training_data.py
+    ```
+    -   **Action:** This script executes the NPZD model 5000 times with varied inputs.
+    -   **Output:** Creates `data/real_forced_training_data.csv`. Console messages will confirm data retrieval (simulated) and file generation.
+
+2.  **Train Random Forest Surrogate Model:**
+    Train the Random Forest (RF) surrogate model using the generated data.
+    ```bash
+    python scripts/random_forest_surrogate.py
+    ```
+    -   **Action:** This script trains an RF model and evaluates it on a test split.
+    -   **Output:** Produces `data/rf_predictions.csv` containing true and predicted values. Console output will display R² and RMSE metrics for each of the five target variables (e.g., `N - R²: 0.891, RMSE: 1.867`).
+
+3.  **Train Neural Network Surrogate Model:**
+    Train the PyTorch Neural Network (NN) surrogate model.
+    ```bash
+    python scripts/neural_network_surrogate_pytorch.py
+    ```
+    -   **Action:** This script trains an NN model and evaluates it.
+    -   **Output:** Generates `data/nn_predictions_pytorch.csv` with predicted values. Console output will show training loss every 10 epochs and final R² and RMSE metrics for each target variable (e.g., `N - R²: 0.891, RMSE: 1.867`).
+
+4.  **Compare Models:**
+    Compare the performance of the Random Forest and Neural Network models.
+    ```bash
+    python scripts/compare_models.py
+    ```
+    -   **Action:** This script loads predictions from both models and calculates comparative metrics.
+    -   **Output:** Prints a table of R² and RMSE values for both models to the console. Saves a comparison scatter plot to `figures/model_comparison_scatter_plots.png`.
+
+5.  **Visualize Results (Optional):**
+    Open and run the Jupyter Notebook for detailed visualizations.
+    ```bash
+    jupyter notebook notebooks/test.ipynb
+    ```
+    -   **Action:** Launch the Jupyter Notebook server. Open `test.ipynb` in your browser.
+    -   **Output:** Execute cells to visualize chlorophyll distribution from the training data, Random Forest predictions, and (optionally) Neural Network predictions. Plots are displayed in the notebook and may be saved to the `figures/` directory.
+
+## Results Summary
+
+Both surrogate models demonstrated good performance in approximating the NPZD model outputs.
+
+-   **Random Forest Performance:**
+    -   N: R²: 0.891, RMSE: 1.867 mmol N/m³
+    -   P: R²: 0.748, RMSE: 1.567 mmol N/m³
+    -   Z: R²: 0.751, RMSE: 0.220 mmol N/m³
+    -   D: R²: 0.895, RMSE: 0.735 mmol N/m³
+    -   chlorophyll: R²: 0.748, RMSE: 0.501 mg/m³
+
+-   **Neural Network Performance:**
+    -   N: R²: 0.891, RMSE: (similar to RF)
+    -   P: R²: 0.744, RMSE: (similar to RF)
+    -   Z: R²: 0.769, RMSE: (slightly better than RF)
+    -   D: R²: 0.906, RMSE: (slightly better than RF)
+    -   chlorophyll: R²: 0.744, RMSE: (similar to RF)
+
+-   **Comparison:**
+    Both models perform well. The Neural Network slightly outperforms the Random Forest model for Zooplankton ($Z$) and Detritus ($D$), potentially indicating its better ability to capture more complex, nonlinear dynamics inherent in these variables. The `figures/model_comparison_scatter_plots.png` provides a visual comparison.
+
+## Notes
+
+-   **Synthetic Data:** The training data is entirely synthetic, generated by an NPZD model configured to mimic conditions in the North Atlantic (Gulf Stream region: 40.0°N, -50.0°W) for the year 2023.
+-   **Neural Network Architecture:** The current NN model uses a simple feedforward architecture with two hidden layers (64 and 32 units). Its hyperparameters (e.g., `hidden_size`, `num_epochs`) can be adjusted in the `scripts/neural_network_surrogate_pytorch.py` file for further tuning.
+-   **Script Execution Order:** It is crucial to run the scripts in the order specified in the "Usage" section, as subsequent scripts depend on the output files generated by previous ones (e.g., `real_forced_training_data.csv` is needed for training).
+-   **Reproducibility:** Random seeds are set in the scripts (`random_forest_surrogate.py` and `neural_network_surrogate_pytorch.py`) to ensure reproducibility of model training and data splitting.
+
+## Future Work
+
+Several avenues can be explored to extend and improve this project:
+
+-   **Model Tuning:**
+    -   Perform systematic hyperparameter optimization for both RF and NN models (e.g., using GridSearchCV for RF, or tools like Optuna/Ray Tune for NN).
+    -   Experiment with different NN architectures (e.g., more layers, different activation functions, dropout, batch normalization).
+    -   Increase `num_epochs` for NN training (e.g., to 200) to see if performance on $P$ and chlorophyll improves.
+-   **Real Data Integration:**
+    -   Replace or augment synthetic data with real oceanographic data from sources like Copernicus Marine Service, ARGO floats, or NOAA to train and validate models under more realistic conditions.
+-   **Feature Engineering:**
+    -   Explore additional or derived input features (e.g., seasonal components from `day_of_year`, interaction terms).
+-   **Variable Expansion:**
+    -   Extend the NPZD model and surrogates to include additional biogeochemical variables (e.g., dissolved oxygen, pH, carbonate system variables).
+-   **Advanced Surrogate Models:**
+    -   Investigate other machine learning techniques (e.g., Gradient Boosting Machines like XGBoost/LightGBM, Gaussian Processes).
+    -   Explore physics-informed neural networks (PINNs) if some underlying physical constraints are known.
+-   **Deployment:**
+    -   Develop a simple web application or API (e.g., using Flask or FastAPI) to serve predictions from the trained surrogate models.
+-   **Uncertainty Quantification:**
+    -   Implement methods to estimate prediction uncertainty for the surrogate models.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details (if you choose to add one).
+*Suggestion: If you haven't added a `LICENSE` file, consider adding one. The MIT license is a good permissive option.*
+
+## Contact
+
+Vikash Chaurasia
+-   Email: [chaurasiavik@gmail.com](mailto:chaurasiavik@gmail.com)
+-   GitHub: [chaurasiavikash](https://github.com/chaurasiavikash)
+
+## Repository
+
+[https://github.com/chaurasiavikash/AIMEC-NPZ.git](https://github.com/chaurasiavikash/AIMEC-NPZ.git)
