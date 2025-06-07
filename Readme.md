@@ -1,4 +1,4 @@
-# Surrogate Modeling of an Enhanced NPZD Ecosystem Model for JAMSTEC AIMEC Application
+# Surrogate Modeling of an Enhanced NPZD Ecosystem Model for  AIMEC Application
 
 [![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- Consider adding a license -->
